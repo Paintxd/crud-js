@@ -1,0 +1,19 @@
+{
+  "name": "simple-crud",
+  "version": "1.0.0",
+  "description": "e um crud simplao mesmo",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "nodemon",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Paintxd",
+  "license": "ISC",
+  "dependencies": {
+    "alasql": "^1.7.2",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
