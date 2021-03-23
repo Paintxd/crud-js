@@ -1,52 +1,16 @@
 const express = require('express');
-const crudDb = require('../db/crudDb');
+const crudController = require('../controllers/crudController');
 
 const router = express.Router();
 
-router.get('/usuarios', (req, res) => {
-  const result = crudDb.selectAll();
+router.get('/usuarios', crudController.findUsuarios.bind(crudController));
 
-  res.status(200).json(result);
-});
+router.get('/usuario/:id', crudController.findUsuario.bind(crudController));
 
-router.get('/usuario/:id', (req, res) => {
-  const result = crudDb.select(Number(req.params.id));
+router.post('/usuario/registro', crudController.registraUsuario.bind(crudController));
 
-  if (!result)
-    res.status(404).json({ error: 'Usuario nao encontrado' });
+router.put('/usuario/:id', crudController.updateUsuario.bind(crudController));
 
-  res.status(200).json(result);
-});
-
-router.post('/usuario/registro', (req, res) => {
-  const { nome, idade } = req.body;
-
-  if (!nome || !idade)
-    res.status(500).json({ error: 'Necessario informar nome e idade' });
-
-  crudDb.insert(nome, idade);
-
-  res.status(201).json({});
-});
-
-router.put('/usuario/:id', (req, res) => {
-  const { nome } = req.body;
-
-  if (!nome)
-    res.status(500).json({ error: 'Necessario informar nome' });
-
-  const result = crudDb.update(Number(req.params.id), nome);
-
-  if (!result)
-    res.status(404).json({ error: 'Usuario nao encontrado' });
-
-  res.status(200).json({});
-});
-
-router.delete('/usuario/:id', (req, res) => {
-  crudDb.delete(Number(req.params.id));
-
-  res.status(200).json({});
-});
+router.delete('/usuario/:id', crudController.deleteUsuario.bind(crudController));
 
 module.exports = router;
